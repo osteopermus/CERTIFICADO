@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificado de Participación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f4f4f4;
+    }
+    .certificado {
+      border: 4px solid #4CAF50;
+      border-radius: 20px;
+      padding: 30px;
+      background-color: #ffffff;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .certificado img {
+      max-width: 200px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .nombre {
+      font-size: 26px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+    .mensaje {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Generador de Certificado</h2>
+  <input type="text" id="nameInput" placeholder="Escribe tu nombre">
+  <br>
+  <button onclick="generate()">Generar certificado</button>
+  <button onclick="downloadPDF()" style="display:none;" id="downloadBtn">Descargar PDF</button>
+
+  <div id="certificado" class="certificado" style="display:none;">
+    <img src="woman-8361440_1280.jpg" alt="Gestante">
+    <div class="nombre" id="nombreMostrado"></div>
+    <div class="mensaje">Gracias por aprender con nosotros</div>
+  </div>
+
+  <!-- Librería html2pdf -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    function generate() {
+      const name = document.getElementById('nameInput').value.trim();
+      if (name === '') {
+        alert('Por favor, ingresa tu nombre.');
+        return;
+      }
+      document.getElementById('nombreMostrado').innerText = name;
+      document.getElementById('certificado').style.display = 'block';
+      document.getElementById('downloadBtn').style.display = 'inline-block';
+    }
+
+    function downloadPDF() {
+      const element = document.getElementById('certificado');
+      const opt = {
+        margin:       0.5,
+        filename:     'certificado.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+
+</body>
+</html>
+
+
+
