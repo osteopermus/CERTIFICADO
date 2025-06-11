@@ -18,11 +18,12 @@
       max-width: 700px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      position: relative;
+      min-height: 150px;
     }
     h1 {
       color: #2196f3;
       font-size: 28px;
+      margin-bottom: 10px;
     }
     .nombre {
       font-size: 26px;
@@ -35,7 +36,8 @@
       padding: 10px;
       font-size: 16px;
       width: 60%;
-      margin-bottom: 10px;
+      margin: 10px auto;
+      display: block;
     }
     button {
       padding: 10px 20px;
@@ -61,13 +63,11 @@
   </div>
 
   <input type="text" id="inputNombre" placeholder="Escribe tu nombre aquí" />
-  <br />
+  
   <button onclick="generar()">Generar certificado</button>
   <button onclick="descargarPDF()">Descargar PDF</button>
 
-  <!-- Librería jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <script>
     function generar() {
       const nombre = document.getElementById("inputNombre").value.trim();
@@ -75,28 +75,24 @@
       salida.textContent = nombre || "__________________________";
     }
 
-    async function descargarPDF() {
+    function descargarPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
       const nombre = document.getElementById("nombreCertificado").textContent;
 
-      // Título
       doc.setFontSize(28);
       doc.setTextColor('#2196f3');
       doc.text("¡Gracias por aprender con nosotros!", 105, 40, null, null, 'center');
 
-      // Subtítulo
       doc.setFontSize(16);
       doc.setTextColor('#000');
       doc.text("Otorgamos el presente certificado a:", 105, 60, null, null, 'center');
 
-      // Nombre
       doc.setFontSize(22);
       doc.setTextColor('#333');
       doc.text(nombre, 105, 85, null, null, 'center');
 
-      // Guarda el PDF
       doc.save('Certificado_de_Participacion.pdf');
     }
   </script>
