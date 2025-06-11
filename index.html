@@ -5,7 +5,7 @@
   <title>Certificado de Participación</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f5faff;
       text-align: center;
       padding: 50px;
@@ -67,6 +67,7 @@
   <button onclick="generar()">Generar certificado</button>
   <button onclick="descargarPDF()">Descargar PDF</button>
 
+  <!-- Importamos jsPDF desde CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     function generar() {
@@ -75,7 +76,7 @@
       salida.textContent = nombre || "__________________________";
     }
 
-    function descargarPDF() {
+    async function descargarPDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
@@ -83,15 +84,15 @@
 
       doc.setFontSize(28);
       doc.setTextColor('#2196f3');
-      doc.text("¡Gracias por aprender con nosotros!", 105, 40, null, null, 'center');
+      doc.text("¡Gracias por aprender con nosotros!", 105, 40, { align: "center" });
 
       doc.setFontSize(16);
       doc.setTextColor('#000');
-      doc.text("Otorgamos el presente certificado a:", 105, 60, null, null, 'center');
+      doc.text("Otorgamos el presente certificado a:", 105, 60, { align: "center" });
 
       doc.setFontSize(22);
       doc.setTextColor('#333');
-      doc.text(nombre, 105, 85, null, null, 'center');
+      doc.text(nombre, 105, 85, { align: "center" });
 
       doc.save('Certificado_de_Participacion.pdf');
     }
