@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificado de Participación</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5faff;
+      text-align: center;
+      padding: 50px;
+    }
+    .certificado {
+      background: #fff;
+      border: 4px solid #2196f3;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #2196f3;
+      font-size: 28px;
+    }
+    .nombre {
+      font-size: 26px;
+      color: #333;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 60%;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1976d2;
+    }
+    .imagen {
+      margin-top: 30px;
+    }
+    .imagen img {
+      width: 200px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="certificado">
+    <h1>¡Gracias por aprender con nosotros!</h1>
+    <p>Otorgamos el presente certificado a:</p>
+    <div class="nombre" id="nombreCertificado">__________________________</div>
+
+    <input type="text" id="inputNombre" placeholder="Escribe tu nombre aquí">
+    <br>
+    <button onclick="generar()">Generar certificado</button>
+
+    <div class="imagen">
+      <img src="mujer-8361440_1280.jpg" alt="Imagen de gestante">
+    </div>
+  </div>
+
+  <script>
+    function generar() {
+      const nombre = document.getElementById("inputNombre").value;
+      const salida = document.getElementById("nombreCertificado");
+      salida.textContent = nombre || "__________________________";
+    }
+  </script>
+
+</body>
+</html>
