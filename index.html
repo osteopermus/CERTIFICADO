@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Certificado de Participación</title>
   <style>
     body {
@@ -18,6 +18,7 @@
       max-width: 700px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
     }
     h1 {
       color: #2196f3;
@@ -28,6 +29,7 @@
       color: #333;
       margin: 20px 0;
       font-weight: bold;
+      min-height: 40px;
     }
     input[type="text"] {
       padding: 10px;
@@ -43,42 +45,62 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      margin: 5px;
     }
     button:hover {
       background: #1976d2;
-    }
-    .imagen {
-      margin-top: 30px;
-    }
-    .imagen img {
-      width: 200px;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="certificado">
+  <div class="certificado" id="certificado">
     <h1>¡Gracias por aprender con nosotros!</h1>
     <p>Otorgamos el presente certificado a:</p>
     <div class="nombre" id="nombreCertificado">__________________________</div>
-
-    <input type="text" id="inputNombre" placeholder="Escribe tu nombre aquí">
-    <br>
-    <button onclick="generar()">Generar certificado</button>
-
-    <div class="imagen">
-      <img src="mujer-8361440_1280.jpg">
-    </div>
   </div>
+
+  <input type="text" id="inputNombre" placeholder="Escribe tu nombre aquí" />
+  <br />
+  <button onclick="generar()">Generar certificado</button>
+  <button onclick="descargarPDF()">Descargar PDF</button>
+
+  <!-- Librería jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
     function generar() {
-      const nombre = document.getElementById("inputNombre").value;
+      const nombre = document.getElementById("inputNombre").value.trim();
       const salida = document.getElementById("nombreCertificado");
       salida.textContent = nombre || "__________________________";
+    }
+
+    async function descargarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const nombre = document.getElementById("nombreCertificado").textContent;
+
+      // Título
+      doc.setFontSize(28);
+      doc.setTextColor('#2196f3');
+      doc.text("¡Gracias por aprender con nosotros!", 105, 40, null, null, 'center');
+
+      // Subtítulo
+      doc.setFontSize(16);
+      doc.setTextColor('#000');
+      doc.text("Otorgamos el presente certificado a:", 105, 60, null, null, 'center');
+
+      // Nombre
+      doc.setFontSize(22);
+      doc.setTextColor('#333');
+      doc.text(nombre, 105, 85, null, null, 'center');
+
+      // Guarda el PDF
+      doc.save('Certificado_de_Participacion.pdf');
     }
   </script>
 
 </body>
 </html>
+
